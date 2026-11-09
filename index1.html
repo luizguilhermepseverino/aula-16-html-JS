@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercícios - Manipulação DOM</title>
+
+    <style>
+        body {
+            background-color: white;
+            color: black;
+            font-family: Arial, sans-serif;
+        }
+
+        .escuro {
+            background-color: #222;
+            color: white;
+        }
+
+        .cartao {
+            border: 1px solid gray;
+            padding: 15px;
+            width: 250px;
+            margin-top: 10px;
+        }
+
+        img {
+            width: 100px;
+            height: 100px;
+        }
+
+        hr {
+            margin-top: 25px;
+            margin-bottom: 25px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Exercícios de Manipulação do DOM</h1>
+
+    <h2>1. Mensagem de boas-vindas</h2>
+
+    <input type="text" id="nome" placeholder="Digite seu nome">
+
+    <button id="botaoNome">Enviar</button>
+
+    <p id="mensagem"></p>
+
+    <hr>
+
+    <h2>2. Contador de caracteres</h2>
+
+    <input type="text" id="texto" placeholder="Digite alguma coisa">
+
+    <p id="contador">Você digitou 0 caracteres.</p>
+
+    <p id="aviso"></p>
+
+    <hr>
+
+    <h2>3. Alternar tema</h2>
+
+    <p>Experimente alterar o tema da página.</p>
+
+    <button id="botaoTema">Ativar tema escuro</button>
+
+    <hr>
+
+    <h2>4. Cartão de perfil</h2>
+
+    <form id="formulario">
+
+        <input type="text" id="nomePerfilInput" placeholder="Digite seu nome" required>
+
+        <br><br>
+
+        <textarea id="descricaoInput" placeholder="Digite sua descrição" required></textarea>
+
+        <br><br>
+
+        <button type="submit">Atualizar perfil</button>
+
+    </form>
+
+    <div class="cartao">
+
+        <img src="https://admin.cnnbrasil.com.br/wp-content/uploads/sites/12/2024/12/imagem-do-dia-nasa-galaxia_1ca856.jpg?w=849&h=477&crop=0&quality=90.img" alt="Foto de perfil">
+
+        <h3 id="nomePerfil">Nome do usuário</h3>
+
+        <p id="descricaoPerfil">Descrição do usuário</p>
+
+    </div>
+
+    <hr>
+
+    <h2>5. Alterar atributos de uma imagem</h2>
+
+    <img id="imagem"
+         src="https://i.pinimg.com/736x/4e/de/98/4ede98292f53971b3e8cbf7386dfc1fc.jpg"
+         alt="Imagem A"
+         width="200">
+
+    <br><br>
+
+    <button id="botaoA">Mostrar imagem A</button>
+
+    <button id="botaoB">Mostrar imagem B</button>
+
+    <p id="descricaoImagem"></p>
+
+    <script>
+
+        // EXERCÍCIO 1 - Mensagem de boas-vindas
+
+        const nome = document.getElementById("nome");
+        const botaoNome = document.getElementById("botaoNome");
+        const mensagem = document.getElementById("mensagem");
+
+        botaoNome.addEventListener("click", function() {
+
+            if (nome.value === "") {
+                mensagem.textContent = "Digite seu nome.";
+            } else {
+                mensagem.textContent = "Olá, " + nome.value + "!";
+            }
+
+        });
+
+
+        // EXERCÍCIO 2 - Contador de caracteres
+
+        const texto = document.getElementById("texto");
+        const contador = document.getElementById("contador");
+        const aviso = document.getElementById("aviso");
+
+        texto.addEventListener("input", function() {
+
+            let quantidade = texto.value.length;
+
+            contador.textContent = "Você digitou " + quantidade + " caracteres.";
+
+            if (quantidade > 50) {
+                aviso.textContent = "Atenção! Você ultrapassou 50 caracteres.";
+            } else {
+                aviso.textContent = "";
+            }
+
+        });
+
+
+        // EXERCÍCIO 3 - Alternar tema
+
+        const botaoTema = document.getElementById("botaoTema");
+
+        botaoTema.addEventListener("click", function() {
+
+            document.body.classList.toggle("escuro");
+
+            if (document.body.classList.contains("escuro")) {
+                botaoTema.textContent = "Ativar tema claro";
+            } else {
+                botaoTema.textContent = "Ativar tema escuro";
+            }
+
+        });
+
+
+        // EXERCÍCIO 4 - Cartão de perfil
+
+        const formulario = document.getElementById("formulario");
+
+        const nomeInput = document.getElementById("nomePerfilInput");
+        const descricaoInput = document.getElementById("descricaoInput");
+
+        const nomePerfil = document.getElementById("nomePerfil");
+        const descricaoPerfil = document.getElementById("descricaoPerfil");
+
+        formulario.addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            nomePerfil.textContent = nomeInput.value;
+            descricaoPerfil.textContent = descricaoInput.value;
+
+        });
+
+
+        // EXERCÍCIO 5 - Imagem
+        const imagem = document.getElementById("imagem");
+
+        const botaoA = document.getElementById("botaoA");
+        const botaoB = document.getElementById("botaoB");
+
+        const descricaoImagem = document.getElementById("descricaoImagem");
+
+        botaoA.addEventListener("click", function() {
+
+            imagem.setAttribute("src", "https://i.pinimg.com/736x/4e/de/98/4ede98292f53971b3e8cbf7386dfc1fc.jpg");
+
+            imagem.setAttribute("alt", "Imagem A");
+
+            descricaoImagem.textContent = imagem.getAttribute("alt");
+
+        });
+
+        botaoB.addEventListener("click", function() {
+
+            imagem.setAttribute("src", "https://s2-oglobo.glbimg.com/TBHKF5iXMhHB2JEzL8iVEMRQshU=/0x0:439x273/888x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_da025474c0c44edd99332dddb09cabe8/internal_photos/bs/2023/U/C/V9PkuMSEu3hQDv1bzUmg/screenshot-201.png");
+
+            imagem.setAttribute("alt", "Imagem B");
+
+            descricaoImagem.textContent = imagem.getAttribute("alt");
+
+        });
+
+    </script>
+
+</body>
+</html>
